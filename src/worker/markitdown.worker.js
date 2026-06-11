@@ -24,6 +24,7 @@ async function init(wheelUrl) {
     { name: "charset-normalizer", label: "charset-normalizer" },
     { name: "defusedxml", label: "defusedxml" },
     { name: "requests", label: "requests" },
+    { name: "Pillow", label: "Pillow" },
     { name: "pdfminer.six", label: "pdfminer" },
     { name: "pdfplumber", label: "pdfplumber" },
     { name: "mammoth", label: "mammoth" }

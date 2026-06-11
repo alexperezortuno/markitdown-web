@@ -1,7 +1,7 @@
 <template>
   <div
     class="dropzone"
-    :class="{ dragover, disabled: !isReady || isProcessing }"
+    :class="{ dragover, disabled: isProcessing }"
     @dragover.prevent="onDragOver"
     @dragleave.prevent="onDragLeave"
     @drop.prevent="onDrop"
@@ -29,8 +29,7 @@
       </div>
 
       <p class="dropzone-title">
-        <span v-if="!isReady">Esperando inicializacion...</span>
-        <span v-else-if="isProcessing">Procesando archivo...</span>
+        <span v-if="isProcessing">Procesando archivo...</span>
         <span v-else>Arrastra tu archivo aqui o <span class="link">seleccionalo</span></span>
       </p>
 
@@ -75,7 +74,7 @@ const fileInputRef = ref(null)
 const dragover = ref(false)
 const fileError = ref(null)
 
-const formats = ['PDF', 'DOCX', 'PPTX', 'XLSX', 'HTML', 'IMG', 'CSV', 'JSON', 'ZIP']
+const formats = ['PDF', 'DOCX', 'PPTX', 'XLSX', 'HTML', 'IMG (OCR)', 'CSV', 'JSON', 'ZIP']
 
 const acceptedExtensions = [
   '.pdf', '.docx', '.doc', '.pptx', '.ppt', '.xlsx', '.xls',
@@ -87,7 +86,7 @@ const acceptedExtensions = [
 const acceptedTypes = acceptedExtensions.join(',')
 
 function onDragOver() {
-  if (!props.isReady || props.isProcessing) return
+  if (props.isProcessing) return
   dragover.value = true
 }
 
@@ -97,14 +96,14 @@ function onDragLeave() {
 
 function onDrop(e) {
   dragover.value = false
-  if (!props.isReady || props.isProcessing) return
+  if (props.isProcessing) return
 
   const file = e.dataTransfer?.files?.[0]
   if (file) handleFile(file)
 }
 
 function openFilePicker() {
-  if (!props.isReady || props.isProcessing) return
+  if (props.isProcessing) return
   fileInputRef.value?.click()
 }
 

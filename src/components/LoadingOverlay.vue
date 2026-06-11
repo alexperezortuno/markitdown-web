@@ -18,14 +18,14 @@
           </svg>
         </div>
 
-        <p class="loading-title">Preparando el entorno</p>
+        <p class="loading-title">{{ title }}</p>
         <p class="loading-message">{{ message }}</p>
 
         <div class="progress-bar">
           <div class="progress-fill" :style="{ width: progress + '%' }"></div>
         </div>
 
-        <div class="progress-steps">
+        <div v-if="mode === 'init'" class="progress-steps">
           <div
             v-for="(step, i) in steps"
             :key="i"
@@ -51,7 +51,9 @@ import { computed } from 'vue'
 const props = defineProps({
   visible: Boolean,
   progress: { type: Number, default: 0 },
-  message: { type: String, default: '' }
+  message: { type: String, default: '' },
+  title: { type: String, default: 'Preparando el entorno' },
+  mode: { type: String, default: 'init' }
 })
 
 const steps = ['Pyodide', 'MarkItDown', 'Dependencias', 'Listo']
