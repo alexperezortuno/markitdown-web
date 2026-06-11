@@ -5,192 +5,192 @@
 [![Vue 3](https://img.shields.io/badge/Vue-3-42b883)](https://vuejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-6-646cff)](https://vitejs.dev/)
 
-**Convierte documentos a Markdown instantáneamente en tu navegador**
+**Convert documents to Markdown instantly in your browser**
 
-Markify es una herramienta web gratuita que convierte documentos (PDF, DOCX, HTML, imágenes y más) a formato Markdown. Todo el procesamiento se realiza 100% en el cliente, garantizando privacidad total - ningún archivo se envía a servidores externos.
+Markify is a free web tool that converts documents (PDF, DOCX, HTML, images, and more) to Markdown format. All processing is done 100% client-side, ensuring complete privacy - no files are ever sent to external servers.
 
-## ✨ Características
+## ✨ Features
 
-- 🚀 **Procesamiento local**: Todo se ejecuta en tu navegador usando WebAssembly
-- 🔒 **Privacidad total**: Los archivos nunca salen de tu dispositivo
-- 📄 **Múltiples formatos**: PDF, DOCX, HTML, CSV, JSON, TXT
-- 🖼️ **OCR integrado**: Extracción de texto de imágenes con Tesseract.js
-- 👀 **Vista previa en vivo**: Visualiza el Markdown renderizado en tiempo real
-- 📋 **Copiar y descargar**: Exporta resultados fácilmente
-- 🌙 **Diseño moderno**: Interfaz oscura con glassmorphism
-- 📱 **Responsive**: Funciona en dispositivos móviles
-- ⚡ **Sin instalación**: Funciona directamente desde el navegador
+- 🚀 **Local processing**: Everything runs in your browser using WebAssembly
+- 🔒 **Complete privacy**: Files never leave your device
+- 📄 **Multiple formats**: PDF, DOCX, HTML, CSV, JSON, TXT
+- 🖼️ **Built-in OCR**: Text extraction from images with Tesseract.js
+- 👀 **Live preview**: View rendered Markdown in real-time
+- 📋 **Copy and download**: Export results easily
+- 🌙 **Modern design**: Dark interface with glassmorphism
+- 📱 **Responsive**: Works on mobile devices
+- ⚡ **No installation**: Works directly from the browser
 
-## 🛠️ Tecnologías
+## 🛠️ Technologies
 
 - **Frontend**: Vue 3 + Vite
-- **Core**: [MarkItDown](https://github.com/microsoft/markitdown) de Microsoft
-- **Runtime Python**: [Pyodide](https://pyodide.org/) (Python en WebAssembly)
+- **Core**: [MarkItDown](https://github.com/microsoft/markitdown) by Microsoft
+- **Python Runtime**: [Pyodide](https://pyodide.org/) (Python in WebAssembly)
 - **OCR**: [Tesseract.js](https://tesseract.projectnaptha.com/)
 - **Markdown**: [marked](https://marked.js.org/) + [highlight.js](https://highlightjs.org/)
-- **Styling**: CSS personalizado con variables CSS
-- **Containerización**: Docker multi-stage build
+- **Styling**: Custom CSS with CSS variables
+- **Containerization**: Docker multi-stage build
 
-## 🚀 Inicio rápido
+## 🚀 Quick Start
 
-### Desarrollo local
+### Local Development
 
 ```bash
-# Clonar el repositorio
+# Clone the repository
 git clone https://github.com/tu-usuario/markitdown-web.git
 cd markitdown-web
 
-# Instalar dependencias
+# Install dependencies
 pnpm install
 
-# Iniciar servidor de desarrollo
+# Start development server
 pnpm dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Usando Docker
+### Using Docker
 
 ```bash
-# Construir y levantar con Docker Compose
+# Build and start with Docker Compose
 docker compose up -d
 
-# Ver logs
+# View logs
 docker compose logs -f
 
-# Detener
+# Stop
 docker compose down
 ```
 
-Accede a [http://localhost:3000](http://localhost:3000)
+Access [http://localhost:3000](http://localhost:3000)
 
-### Build para producción
+### Production Build
 
 ```bash
-# Instalar dependencias
+# Install dependencies
 pnpm install
 
-# Construir para producción
+# Build for production
 pnpm build
 
-# Preview del build
+# Preview the build
 pnpm preview
 ```
 
-Los archivos se generarán en el directorio `dist/`.
+Files will be generated in the `dist/` directory.
 
-## 📁 Estructura del proyecto
+## 📁 Project Structure
 
 ```
 markitdown-web/
 ├── public/
-│   └── wheels/              # Paquetes Python (MarkItDown)
+│   └── wheels/              # Python packages (MarkItDown)
 ├── src/
-│   ├── assets/              # Estilos globales
-│   ├── components/          # Componentes Vue
+│   ├── assets/              # Global styles
+│   ├── components/          # Vue components
 │   │   ├── AppHeader.vue
 │   │   ├── FileDropzone.vue
 │   │   ├── LoadingOverlay.vue
 │   │   ├── OutputPanel.vue
 │   │   └── Toolbar.vue
-│   ├── composables/         # Lógica reutilizable
+│   ├── composables/         # Reusable logic
 │   │   └── useMarkItDown.js
-│   ├── utils/               # Utilidades
+│   ├── utils/               # Utilities
 │   │   └── ocr.js
-│   ├── worker/              # Web Worker para Pyodide
+│   ├── worker/              # Web Worker for Pyodide
 │   │   └── markitdown.worker.js
-│   ├── App.vue              # Componente raíz
-│   └── main.js              # Punto de entrada
+│   ├── App.vue              # Root component
+│   └── main.js              # Entry point
 ├── .github/
 │   └── workflows/
-│       └── ci.yml           # CI/CD con GitHub Actions
-├── Dockerfile               # Build multi-stage
-├── docker-compose.yml       # Configuración Docker
-├── nginx.conf               # Configuración nginx
-└── vite.config.js           # Configuración Vite
+│       └── ci.yml           # CI/CD with GitHub Actions
+├── Dockerfile               # Multi-stage build
+├── docker-compose.yml       # Docker configuration
+├── nginx.conf               # nginx configuration
+└── vite.config.js           # Vite configuration
 ```
 
-## 📦 Formatos soportados
+## 📦 Supported Formats
 
-| Formato | Extensión | Método |
-|---------|-----------|--------|
+| Format | Extension | Method |
+|--------|-----------|--------|
 | PDF | `.pdf` | MarkItDown + pdfminer/pdfplumber |
 | Word | `.docx` | MarkItDown + mammoth |
 | HTML | `.html`, `.htm` | MarkItDown + beautifulsoup4 |
 | CSV | `.csv` | MarkItDown |
 | JSON | `.json` | MarkItDown |
-| Texto | `.txt` | MarkItDown |
-| Imágenes | `.jpg`, `.png`, `.gif`, `.bmp`, `.tiff`, `.webp` | Tesseract.js (OCR) |
+| Text | `.txt` | MarkItDown |
+| Images | `.jpg`, `.png`, `.gif`, `.bmp`, `.tiff`, `.webp` | Tesseract.js (OCR) |
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
-Markify utiliza una arquitectura basada en Web Workers para ejecutar Python en el navegador:
+Markify uses a Web Worker-based architecture to run Python in the browser:
 
-1. **Pyodide**: Runtime de Python compilado a WebAssembly
-2. **MarkItDown**: Librería de Microsoft para conversión de documentos
-3. **Web Worker**: Procesa las conversiones sin bloquear la UI
-4. **Tesseract.js**: OCR nativo en JavaScript para imágenes
+1. **Pyodide**: Python runtime compiled to WebAssembly
+2. **MarkItDown**: Microsoft library for document conversion
+3. **Web Worker**: Processes conversions without blocking the UI
+4. **Tesseract.js**: Native JavaScript OCR for images
 
-El flujo de conversión:
+The conversion flow:
 ```
-Usuario → Carga archivo → Web Worker → Pyodide → MarkItDown → Markdown → UI
+User → Upload file → Web Worker → Pyodide → MarkItDown → Markdown → UI
 ```
 
 ## 🐳 Docker
 
-### Construir imagen manualmente
+### Build Image Manually
 
 ```bash
-# Construir imagen
+# Build image
 docker build -t markify:latest .
 
-# Ejecutar contenedor
+# Run container
 docker run -d -p 3000:80 --name markify markify:latest
 ```
 
-### Variables de entorno
+### Environment Variables
 
-No se requieren variables de entorno para el funcionamiento básico.
+No environment variables are required for basic operation.
 
-## 🤝 Contribuir
+## 🤝 Contributing
 
-Las contribuciones son bienvenidas. Para cambios importantes:
+Contributions are welcome. For major changes:
 
-1. Abre un issue para discutir lo que quieres cambiar
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Haz commit de tus cambios (`git commit -m 'Add: nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abre un Pull Request
+1. Open an issue to discuss what you want to change
+2. Create a branch for your feature (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -m 'Add: new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Open a Pull Request
 
-### Desarrollo
+### Development
 
 ```bash
-# Instalar dependencias
+# Install dependencies
 pnpm install
 
-# Ejecutar tests (próximamente)
+# Run tests (coming soon)
 pnpm test
 
-# Linting (próximamente)
+# Linting (coming soon)
 pnpm lint
 ```
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está licenciado bajo la Licencia GPL v3 - ver el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the GPL v3 License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Agradecimientos
+## 🙏 Acknowledgments
 
-- [Microsoft MarkItDown](https://github.com/microsoft/markitdown) - Librería core de conversión
-- [Pyodide](https://pyodide.org/) - Python en WebAssembly
-- [Tesseract.js](https://tesseract.projectnaptha.com/) - OCR en JavaScript
-- [Vue.js](https://vuejs.org/) - Framework reactivo
+- [Microsoft MarkItDown](https://github.com/microsoft/markitdown) - Core conversion library
+- [Pyodide](https://pyodide.org/) - Python in WebAssembly
+- [Tesseract.js](https://tesseract.projectnaptha.com/) - JavaScript OCR
+- [Vue.js](https://vuejs.org/) - Reactive framework
 - [Vite](https://vitejs.dev/) - Build tool
 
-## 📞 Contacto
+## 📞 Contact
 
-¿Tienes preguntas o sugerencias? Abre un [issue](https://github.com/tu-usuario/markitdown-web/issues) en GitHub.
+Have questions or suggestions? Open an [issue](https://github.com/tu-usuario/markitdown-web/issues) on GitHub.
 
 ---
 
-**Nota**: Este proyecto usa MarkItDown, una herramienta de Microsoft, adaptada para funcionar completamente en el navegador mediante WebAssembly.
+**Note**: This project uses MarkItDown, a Microsoft tool, adapted to run entirely in the browser via WebAssembly.
