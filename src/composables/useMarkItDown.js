@@ -1,4 +1,12 @@
 import { ref, readonly } from 'vue'
+import { extractTextFromImage } from '../utils/ocr.js'
+
+const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp']
+
+function isImageFile(filename) {
+  const ext = '.' + filename.split('.').pop().toLowerCase()
+  return IMAGE_EXTENSIONS.includes(ext)
+}
 
 const isReady = ref(false)
 const isProcessing = ref(false)
@@ -65,13 +73,39 @@ function init() {
 }
 
 async function convertFile(file) {
-  if (!file || !isReady.value) return
+  if (!file) return
 
   isProcessing.value = true
   error.value = null
   fileName.value = file.name
   status.value = `Procesando ${file.name}...`
   progress.value = 0
+
+  if (isImageFile(file.name)) {
+    try {
+      status.value = 'Ejecutando OCR en imagen...'
+      const text = await extractTextFromImage(file, (p) => {
+        progress.value = p
+      })
+      markdown.value = text
+      status.value = 'Conversion completada'
+      progress.value = 100
+    } catch (err) {
+      error.value = err.message
+      status.value = 'Error en la conversion'
+      console.error('OCR error:', err)
+    } finally {
+      isProcessing.value = false
+    }
+    return
+  }
+
+  if (!isReady.value) {
+    isProcessing.value = false
+    error.value = 'El entorno aun no esta listo'
+    status.value = 'Espera a que termine la inicializacion'
+    return
+  }
 
   const buffer = await file.arrayBuffer()
 

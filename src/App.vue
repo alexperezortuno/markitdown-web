@@ -1,9 +1,11 @@
 <template>
   <div class="app">
     <LoadingOverlay
-      :visible="!isReady"
+      :visible="!isReady || isProcessing"
       :progress="progress"
       :message="status"
+      :title="isProcessing ? 'Convirtiendo documento' : 'Preparando el entorno'"
+      :mode="isProcessing ? 'processing' : 'init'"
     />
 
     <AppHeader
