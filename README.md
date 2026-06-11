@@ -9,7 +9,7 @@
 
 Markify is a free web tool that converts documents (PDF, DOCX, HTML, images, and more) to Markdown format. All processing is done 100% client-side, ensuring complete privacy - no files are ever sent to external servers.
 
-## ✨ Features
+## Features
 
 - 🚀 **Local processing**: Everything runs in your browser using WebAssembly
 - 🔒 **Complete privacy**: Files never leave your device
@@ -21,7 +21,7 @@ Markify is a free web tool that converts documents (PDF, DOCX, HTML, images, and
 - 📱 **Responsive**: Works on mobile devices
 - ⚡ **No installation**: Works directly from the browser
 
-## 🛠️ Technologies
+## Technologies
 
 - **Frontend**: Vue 3 + Vite
 - **Core**: [MarkItDown](https://github.com/microsoft/markitdown) by Microsoft
@@ -31,7 +31,7 @@ Markify is a free web tool that converts documents (PDF, DOCX, HTML, images, and
 - **Styling**: Custom CSS with CSS variables
 - **Containerization**: Docker multi-stage build
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Local Development
 
@@ -79,7 +79,7 @@ pnpm preview
 
 Files will be generated in the `dist/` directory.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 markitdown-web/
@@ -110,7 +110,7 @@ markitdown-web/
 └── vite.config.js           # Vite configuration
 ```
 
-## 📦 Supported Formats
+## Supported Formats
 
 | Format | Extension | Method |
 |--------|-----------|--------|
@@ -122,7 +122,7 @@ markitdown-web/
 | Text | `.txt` | MarkItDown |
 | Images | `.jpg`, `.png`, `.gif`, `.bmp`, `.tiff`, `.webp` | Tesseract.js (OCR) |
 
-## 🏗️ Architecture
+## Architecture
 
 Markify uses a Web Worker-based architecture to run Python in the browser:
 
@@ -136,7 +136,7 @@ The conversion flow:
 User → Upload file → Web Worker → Pyodide → MarkItDown → Markdown → UI
 ```
 
-## 🐳 Docker
+## Docker
 
 ### Build Image Manually
 
@@ -152,7 +152,7 @@ docker run -d -p 3000:80 --name markify markify:latest
 
 No environment variables are required for basic operation.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome. For major changes:
 
@@ -175,11 +175,11 @@ pnpm test
 pnpm lint
 ```
 
-## 📄 License
+## License
 
 This project is licensed under the GPL v3 License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Microsoft MarkItDown](https://github.com/microsoft/markitdown) - Core conversion library
 - [Pyodide](https://pyodide.org/) - Python in WebAssembly
@@ -187,7 +187,7 @@ This project is licensed under the GPL v3 License - see the [LICENSE](LICENSE) f
 - [Vue.js](https://vuejs.org/) - Reactive framework
 - [Vite](https://vitejs.dev/) - Build tool
 
-## 📞 Contact
+## Contact
 
 Have questions or suggestions? Open an [issue](https://github.com/tu-usuario/markitdown-web/issues) on GitHub.
 
