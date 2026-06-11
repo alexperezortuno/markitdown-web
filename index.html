@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkItDown + Pyodide Test</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 1200px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        #status {
+            padding: 10px;
+            margin: 10px 0;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        #dropzone {
+            border: 2px dashed #999;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        #dropzone.dragover {
+            background: #eef6ff;
+        }
+
+        textarea {
+            width: 100%;
+            height: 600px;
+            font-family: monospace;
+            margin-top: 10px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>MarkItDown + Pyodide</h1>
+
+<div id="status">
+    Inicializando...
+</div>
+
+<div class="row">
+    <input type="file" id="fileInput">
+
+    <button id="clearBtn">
+        Limpiar
+    </button>
+
+    <button id="copyBtn">
+        Copiar Markdown
+    </button>
+</div>
+
+<div id="dropzone">
+    Arrastra un archivo aquí o selecciónalo arriba
+</div>
+
+<textarea
+        id="output"
+        placeholder="Aquí aparecerá el Markdown..."
+></textarea>
+
+<script>
+
+    const statusEl =
+        document.getElementById("status");
+
+    const outputEl =
+        document.getElementById("output");
+
+    const fileInput =
+        document.getElementById("fileInput");
+
+    const dropzone =
+        document.getElementById("dropzone");
+
+    const worker =
+        new Worker("worker.js");
+
+    function setStatus(msg) {
+        statusEl.textContent = msg;
+    }
+
+    worker.onmessage = (event) => {
+
+        const data = event.data;
+
+        switch (data.type) {
+
+            case "status":
+                setStatus(data.message);
+                break;
+
+            case "ready":
+                setStatus("Listo");
+                break;
+
+            case "result":
+                outputEl.value = data.markdown;
+                setStatus("Conversión completada");
+                break;
+
+            case "error":
+                console.error(data.error);
+
+                outputEl.value =
+                    data.error;
+
+                setStatus("Error");
+                break;
+        }
+    };
+
+    worker.postMessage({
+        type: "init"
+    });
+
+    async function processFile(file) {
+
+        if (!file) {
+            return;
+        }
+
+        setStatus(
+            `Procesando ${file.name}...`
+        );
+
+        const buffer =
+            await file.arrayBuffer();
+
+        worker.postMessage({
+            type: "convert",
+            name: file.name,
+            buffer
+        });
+    }
+
+    fileInput.addEventListener(
+        "change",
+        async (event) => {
+
+            const file =
+                event.target.files[0];
+
+            await processFile(file);
+        }
+    );
+
+    dropzone.addEventListener(
+        "dragover",
+        (e) => {
+
+            e.preventDefault();
+
+            dropzone.classList.add(
+                "dragover"
+            );
+        }
+    );
+
+    dropzone.addEventListener(
+        "dragleave",
+        () => {
+
+            dropzone.classList.remove(
+                "dragover"
+            );
+        }
+    );
+
+    dropzone.addEventListener(
+        "drop",
+        async (e) => {
+
+            e.preventDefault();
+
+            dropzone.classList.remove(
+                "dragover"
+            );
+
+            const file =
+                e.dataTransfer.files[0];
+
+            await processFile(file);
+        }
+    );
+
+    document
+        .getElementById("clearBtn")
+        .addEventListener(
+            "click",
+            () => {
+
+                outputEl.value = "";
+            }
+        );
+
+    document
+        .getElementById("copyBtn")
+        .addEventListener(
+            "click",
+            async () => {
+
+                await navigator.clipboard.writeText(
+                    outputEl.value
+                );
+
+                alert(
+                    "Markdown copiado"
+                );
+            }
+        );
+
+</script>
+
+</body>
+</html>
