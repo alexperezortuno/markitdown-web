@@ -16,9 +16,14 @@ async function init(wheelUrl) {
 
   await micropip.install(wheelUrl);
 
-  postMessage({ type: "status", message: "Instalando dependencias PDF...", progress: 50 });
+  postMessage({ type: "status", message: "Instalando dependencias...", progress: 40 });
 
   const deps = [
+    { name: "beautifulsoup4", label: "beautifulsoup4" },
+    { name: "markdownify", label: "markdownify" },
+    { name: "charset-normalizer", label: "charset-normalizer" },
+    { name: "defusedxml", label: "defusedxml" },
+    { name: "requests", label: "requests" },
     { name: "pdfminer.six", label: "pdfminer" },
     { name: "pdfplumber", label: "pdfplumber" },
     { name: "mammoth", label: "mammoth" }
@@ -27,7 +32,8 @@ async function init(wheelUrl) {
   for (let i = 0; i < deps.length; i++) {
     const dep = deps[i];
     try {
-      postMessage({ type: "status", message: `Instalando ${dep.label}...`, progress: 50 + (i + 1) * 15 });
+      const progress = 40 + Math.round((i + 1) / deps.length * 50);
+      postMessage({ type: "status", message: `Instalando ${dep.label}...`, progress });
       await micropip.install(dep.name);
     } catch (e) {
       // dependency optional, continue
