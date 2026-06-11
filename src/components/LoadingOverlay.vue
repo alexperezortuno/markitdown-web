@@ -56,7 +56,7 @@ const props = defineProps({
   mode: { type: String, default: 'init' }
 })
 
-const steps = ['Pyodide', 'MarkItDown', 'Dependencies', 'Ready']
+const steps = ['Pyodide', 'Markify Engine', 'Dependencies', 'Ready']
 
 const currentStep = computed(() => {
   const p = props.progress

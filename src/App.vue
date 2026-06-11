@@ -48,7 +48,7 @@
 
     <footer class="footer">
       <p>
-        100% local processing in your browser. No files are sent to external servers.
+        100% local processing in your browser. No files are sent to external servers. Powered by Markify.
       </p>
     </footer>
   </div>
