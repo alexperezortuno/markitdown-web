@@ -10,7 +10,7 @@
       </div>
       <div class="header-text">
         <h1 class="title">MarkItDown</h1>
-        <p class="subtitle">Convierte documentos a Markdown en tu navegador</p>
+        <p class="subtitle">Convert documents to Markdown in your browser</p>
       </div>
     </div>
     <div class="header-right">
@@ -38,9 +38,9 @@ const badgeClass = computed(() => {
 })
 
 const label = computed(() => {
-  if (props.isProcessing) return 'Procesando...'
-  if (props.isReady) return 'Listo'
-  return 'Cargando...'
+  if (props.isProcessing) return 'Processing...'
+  if (props.isReady) return 'Ready'
+  return 'Loading...'
 })
 </script>
 

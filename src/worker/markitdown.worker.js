@@ -4,7 +4,7 @@ importScripts("https://cdn.jsdelivr.net/pyodide/v0.27.3/full/pyodide.js");
 let pyodide;
 
 async function init(wheelUrl) {
-  postMessage({ type: "status", message: "Cargando Pyodide...", progress: 10 });
+  postMessage({ type: "status", message: "Loading Pyodide...", progress: 10 });
 
   pyodide = await loadPyodide();
 
@@ -12,11 +12,11 @@ async function init(wheelUrl) {
 
   const micropip = pyodide.pyimport("micropip");
 
-  postMessage({ type: "status", message: "Instalando MarkItDown...", progress: 25 });
+  postMessage({ type: "status", message: "Installing MarkItDown...", progress: 25 });
 
   await micropip.install(wheelUrl);
 
-  postMessage({ type: "status", message: "Instalando dependencias...", progress: 40 });
+  postMessage({ type: "status", message: "Installing dependencies...", progress: 40 });
 
   const deps = [
     { name: "beautifulsoup4", label: "beautifulsoup4" },
@@ -34,15 +34,15 @@ async function init(wheelUrl) {
     const dep = deps[i];
     try {
       const progress = 40 + Math.round((i + 1) / deps.length * 50);
-      postMessage({ type: "status", message: `Instalando ${dep.label}...`, progress });
+      postMessage({ type: "status", message: `Installing ${dep.label}...`, progress });
       await micropip.install(dep.name);
     } catch (e) {
       // dependency optional, continue
     }
   }
 
-  postMessage({ type: "status", message: "Finalizando...", progress: 95 });
-  postMessage({ type: "ready", message: "Worker listo" });
+  postMessage({ type: "status", message: "Finalizing...", progress: 95 });
+  postMessage({ type: "ready", message: "Worker ready" });
 }
 
 onmessage = async (e) => {
@@ -58,7 +58,7 @@ onmessage = async (e) => {
 
   if (data.type === "convert") {
     try {
-      postMessage({ type: "status", message: "Convirtiendo documento...", progress: 50 });
+      postMessage({ type: "status", message: "Converting document...", progress: 50 });
 
       pyodide.FS.writeFile(data.name, new Uint8Array(data.buffer));
       pyodide.globals.set("filename", data.name);

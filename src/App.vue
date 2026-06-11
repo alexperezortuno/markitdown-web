@@ -4,7 +4,7 @@
       :visible="!isReady || isProcessing"
       :progress="progress"
       :message="status"
-      :title="isProcessing ? 'Convirtiendo documento' : 'Preparando el entorno'"
+      :title="isProcessing ? 'Converting document' : 'Setting up environment'"
       :mode="isProcessing ? 'processing' : 'init'"
     />
 
@@ -37,7 +37,7 @@
             <line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
           <div>
-            <strong>Error en la conversion</strong>
+            <strong>Conversion error</strong>
             <p>{{ error }}</p>
           </div>
         </div>
@@ -48,7 +48,7 @@
 
     <footer class="footer">
       <p>
-        Procesamiento 100% local en tu navegador. Ningun archivo se envia a servidores externos.
+        100% local processing in your browser. No files are sent to external servers.
       </p>
     </footer>
   </div>

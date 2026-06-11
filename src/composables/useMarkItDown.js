@@ -10,7 +10,7 @@ function isImageFile(filename) {
 
 const isReady = ref(false)
 const isProcessing = ref(false)
-const status = ref('Inicializando...')
+const status = ref('Initializing...')
 const progress = ref(0)
 const markdown = ref('')
 const error = ref(null)
@@ -38,21 +38,21 @@ function createWorker() {
 
       case 'ready':
         isReady.value = true
-        status.value = 'Listo para convertir'
+        status.value = 'Ready to convert'
         progress.value = 100
         break
 
       case 'result':
         markdown.value = data.markdown
         isProcessing.value = false
-        status.value = 'Conversion completada'
+        status.value = 'Conversion complete'
         progress.value = 100
         break
 
       case 'error':
         error.value = data.error
         isProcessing.value = false
-        status.value = 'Error en la conversion'
+        status.value = 'Conversion error'
         console.error('Worker error:', data.error)
         break
     }
@@ -61,7 +61,7 @@ function createWorker() {
   worker.onerror = (err) => {
     error.value = err.message
     isProcessing.value = false
-    status.value = 'Error del worker'
+    status.value = 'Worker error'
   }
 }
 
@@ -78,21 +78,21 @@ async function convertFile(file) {
   isProcessing.value = true
   error.value = null
   fileName.value = file.name
-  status.value = `Procesando ${file.name}...`
+  status.value = `Processing ${file.name}...`
   progress.value = 0
 
   if (isImageFile(file.name)) {
     try {
-      status.value = 'Ejecutando OCR en imagen...'
+      status.value = 'Running OCR on image...'
       const text = await extractTextFromImage(file, (p) => {
         progress.value = p
       })
       markdown.value = text
-      status.value = 'Conversion completada'
+      status.value = 'Conversion complete'
       progress.value = 100
     } catch (err) {
       error.value = err.message
-      status.value = 'Error en la conversion'
+      status.value = 'Conversion error'
       console.error('OCR error:', err)
     } finally {
       isProcessing.value = false
@@ -102,8 +102,8 @@ async function convertFile(file) {
 
   if (!isReady.value) {
     isProcessing.value = false
-    error.value = 'El entorno aun no esta listo'
-    status.value = 'Espera a que termine la inicializacion'
+    error.value = 'Environment is not ready yet'
+    status.value = 'Please wait for initialization to complete'
     return
   }
 
@@ -120,7 +120,7 @@ function clear() {
   markdown.value = ''
   fileName.value = null
   error.value = null
-  status.value = isReady.value ? 'Listo para convertir' : 'Inicializando...'
+  status.value = isReady.value ? 'Ready to convert' : 'Initializing...'
 }
 
 function onStatus(callback) {
