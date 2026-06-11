@@ -9,8 +9,8 @@
         </svg>
       </div>
       <div class="header-text">
-        <h1 class="title">MarkItDown</h1>
-        <p class="subtitle">Convert documents to Markdown in your browser</p>
+        <h1 class="title">Markify</h1>
+        <p class="subtitle">Convert documents to Markdown instantly in your browser</p>
       </div>
     </div>
     <div class="header-right">
