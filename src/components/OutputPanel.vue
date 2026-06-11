@@ -10,7 +10,7 @@
           <rect x="3" y="3" width="18" height="18" rx="2"/>
           <line x1="12" y1="3" x2="12" y2="21"/>
         </svg>
-        Dividido
+        Split
       </button>
       <button
         class="tab"
@@ -32,7 +32,7 @@
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
           <circle cx="12" cy="12" r="3"/>
         </svg>
-        Vista previa
+        Preview
       </button>
     </div>
 
@@ -69,8 +69,8 @@
         <polyline points="10 9 9 9 8 9"/>
       </svg>
     </div>
-    <p class="empty-title">El resultado aparecera aqui</p>
-    <p class="empty-subtitle">Selecciona o arrastra un documento para comenzar</p>
+    <p class="empty-title">Results will appear here</p>
+    <p class="empty-subtitle">Select or drop a document to get started</p>
   </div>
 </template>
 

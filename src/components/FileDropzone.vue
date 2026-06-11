@@ -29,8 +29,8 @@
       </div>
 
       <p class="dropzone-title">
-        <span v-if="isProcessing">Procesando archivo...</span>
-        <span v-else>Arrastra tu archivo aqui o <span class="link">seleccionalo</span></span>
+        <span v-if="isProcessing">Processing file...</span>
+        <span v-else>Drop your file here or <span class="link">browse</span></span>
       </p>
 
       <div v-if="fileName" class="file-info">
@@ -74,13 +74,13 @@ const fileInputRef = ref(null)
 const dragover = ref(false)
 const fileError = ref(null)
 
-const formats = ['PDF', 'DOCX', 'PPTX', 'XLSX', 'HTML', 'IMG (OCR)', 'CSV', 'JSON', 'ZIP']
+const formats = ['PDF', 'DOCX', 'HTML', 'IMG (OCR)', 'CSV', 'JSON', 'TXT']
 
 const acceptedExtensions = [
-  '.pdf', '.docx', '.doc', '.pptx', '.ppt', '.xlsx', '.xls',
-  '.html', '.htm', '.csv', '.json', '.xml', '.zip', '.txt',
-  '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp',
-  '.mp3', '.wav', '.ogg', '.mp4', '.avi', '.mov'
+  '.pdf', '.docx', '.doc',
+  '.html', '.htm',
+  '.csv', '.json', '.txt',
+  '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp'
 ]
 
 const acceptedTypes = acceptedExtensions.join(',')
@@ -120,7 +120,7 @@ function handleFile(file) {
   const isAccepted = acceptedExtensions.includes(ext)
 
   if (!isAccepted) {
-    fileError.value = `Formato no soportado. Formatos aceptados: ${formats.join(', ')}`
+    fileError.value = `Unsupported format. Accepted formats: ${formats.join(', ')}`
     setTimeout(() => { fileError.value = null }, 4000)
     return
   }

@@ -52,11 +52,11 @@ const props = defineProps({
   visible: Boolean,
   progress: { type: Number, default: 0 },
   message: { type: String, default: '' },
-  title: { type: String, default: 'Preparando el entorno' },
+  title: { type: String, default: 'Setting up environment' },
   mode: { type: String, default: 'init' }
 })
 
-const steps = ['Pyodide', 'MarkItDown', 'Dependencias', 'Listo']
+const steps = ['Pyodide', 'MarkItDown', 'Dependencies', 'Ready']
 
 const currentStep = computed(() => {
   const p = props.progress
