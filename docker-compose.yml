@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: production
+    environment:
+      APP_URL: "https://<URL>"
     ports:
       - "3000:80"
     restart: unless-stopped
