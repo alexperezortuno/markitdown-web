@@ -15,8 +15,7 @@ RUN pnpm build
 FROM nginx:alpine AS production
 
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY index.template.html /usr/share/nginx/html/index.template.html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN chmod +x /docker-entrypoint.sh
