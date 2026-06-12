@@ -7,7 +7,7 @@ export default defineConfig({
     format: 'iife'
   },
   server: {
-    port: 3000
+    port: Number(process.env.PORT) || 8085
   },
   build: {
     rollupOptions: {
